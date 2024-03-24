@@ -1,72 +1,72 @@
-/* General and Body Styling */
-body {
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
     font-family: 'Arial', sans-serif;
     background-color: #333;
     color: white;
     text-align: center;
-    margin: 0;
-    padding-top: 20px;
 }
 
-/* Container for game elements */
+/* Container for all game elements */
 .container {
-    width: 90%;
-    max-width: 600px;
-    margin: auto;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
     background-color: #424242;
     border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Title styling */
-h1 {
-    color: #61dafb;
+/* City Container Styles */
+#cityContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-/* Status information styling */
+#cityContainer span {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#cityContainer span:hover, .activeCity {
+    background-color: #61dafb;
+    color: #282c34;
+}
+
+/* Status Information Styling */
 #status p {
     margin: 10px 0;
 }
 
-/* Dynamic location display */
-#cities {
-    font-size: 16px;
-    margin: 20px 0;
-}
-
-/* Loan options styling */
-#loanOptions {
-    display: none;
-    margin: 20px 0;
-}
-
-/* Table styling for the drugs chart */
+/* Table Styling for Drugs Chart */
 #drugsChart {
     width: 100%;
+    margin: 20px 0;
     border-collapse: collapse;
-    margin: 20px auto;
 }
 
 #drugsChart th, #drugsChart td {
-    border-bottom: 1px solid #555;
+    border: 1px solid #61dafb;
     padding: 8px;
     text-align: left;
 }
 
-#drugsChart th {
-    border-bottom: 2px solid #61dafb;
-}
-
-/* Button styling */
+/* Button Styling */
 button {
     background-color: #61dafb;
     color: #282c34;
     border: none;
     border-radius: 4px;
-    padding: 10px 15px;
+    padding: 10px;
     margin: 5px;
     cursor: pointer;
+    font-size: 1rem;
     transition: background-color 0.3s;
 }
 
@@ -74,14 +74,27 @@ button:hover {
     background-color: #51c6ea;
 }
 
-/* Responsive Design Adjustments */
-@media (max-width: 600px) {
-    .container {
-        width: 95%;
-        padding: 10px;
-    }
+/* Loan Options Styling */
+#loanOptions {
+    display: none;
+    margin-top: 20px;
+}
 
+/* End Game Styling */
+#endGame {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #cityContainer span {
+        padding: 5px;
+        font-size: 14px;
+    }
+    
     button {
-        width: calc(100% - 20px);
+        width: 100%;
+        margin: 5px 0;
     }
 }
