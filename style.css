@@ -29,19 +29,17 @@ h1 {
 #cityContainer {
     display: flex;
     justify-content: center;
-    flex-wrap: nowrap; /* Prevent wrapping */
-    overflow-x: auto; /* Allow horizontal scrolling */
+    flex-wrap: wrap; /* Allows cities to wrap on smaller screens */
     margin-bottom: 20px;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on webkit browsers */
 }
 
 #cityContainer span {
-    flex: 0 0 auto; /* Don't grow, don't shrink, and base width on content */
+    padding: 8px 10px;
     margin: 0 5px;
-    padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
     background-color: #50555c;
+    transition: background-color 0.3s, color 0.3s;
     font-size: 0.9rem;
 }
 
