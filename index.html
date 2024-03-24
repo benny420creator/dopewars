@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benny's Dope Wars</title>
+    <title>Advanced Dope Wars</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Benny's Dope Wars</h1>
-        <div id="daysLeft">45 Days Left</div>
+        <h1>Advanced Dope Wars</h1>
+        <div id="status">
+            <p id="daysLeft">45 Days Left</p>
+            <p id="cash">Cash: $1000</p>
+            <p id="debt">Debt: $0</p>
+        </div>
         <div id="cities"></div>
         <table id="drugsChart"></table>
-        <div id="gameInfo">
-            <p id="cash">Cash: $1000</p>
-        </div>
         <div id="actions">
             <button onclick="buyGoods()">Buy</button>
             <button onclick="sellGoods()">Sell</button>
             <button onclick="nextDay()">Next Day</button>
+            <button onclick="showLoanSharkOptions()">Loan Shark</button>
+        </div>
+        <div id="loanOptions" style="display: none;">
+            <p>Borrow Money (10% interest rate):</p>
+            <button onclick="borrowFromLoanShark(100)">$100</button>
+            <button onclick="borrowFromLoanShark(500)">$500</button>
+            <button onclick="borrowFromLoanShark(1000)">$1000</button>
+            <button onclick="repayDebt()">Repay Debt</button>
+            <button onclick="hideLoanSharkOptions()">Cancel</button>
         </div>
         <div id="endGame" style="display: none;">
             <h2>Game Over</h2>
