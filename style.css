@@ -1,53 +1,67 @@
-/* General Styles */
+/* General and Body Styling */
 body, html {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
     font-family: 'Arial', sans-serif;
     background-color: #333;
     color: white;
     text-align: center;
 }
 
+/* Game Container */
 .container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
+    width: 100%;
+    max-width: 600px; /* Adjust based on your preference for maximum width */
+    margin: 0 auto;
+    padding: 10px;
     background-color: #424242;
     border-radius: 8px;
+    box-sizing: border-box; /* Includes padding in the element's total width and height */
 }
 
+/* Game Title */
 h1 {
     color: #61dafb;
+    font-size: 20px; /* Adjusted for mobile */
+    margin: 10px 0;
 }
 
+/* City Container for Location Display */
 #cityContainer {
     display: flex;
+    flex-wrap: wrap; /* Allows items to wrap in smaller screens */
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #cityContainer span {
-    margin: 0 10px;
-    padding: 5px 10px;
+    padding: 8px 10px;
+    margin: 2px;
     cursor: pointer;
     border-radius: 5px;
     background-color: #50555c;
+    font-size: 16px; /* Makes it easier to tap on mobile */
     transition: background-color 0.3s, color 0.3s;
 }
 
-#cityContainer span:hover, #cityContainer span.activeCity {
+/* Highlighting the Active City */
+#cityContainer span.activeCity {
     background-color: #61dafb;
     color: #282c34;
 }
 
-#status p, #endGame h2, #endGame p {
-    margin: 10px 0;
+/* Game Status Display */
+#status p {
+    margin: 5px 0;
 }
 
+/* Styling for the Drug Chart */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin: 10px 0;
 }
 
 th, td {
@@ -56,35 +70,41 @@ th, td {
     text-align: left;
 }
 
+/* Buttons Styling */
 button {
     background-color: #61dafb;
     color: #282c34;
     border: none;
     border-radius: 4px;
     padding: 10px;
-    margin: 5px;
+    margin: 5px 2px; /* Reduced margin for compact layout */
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
+    font-size: 16px; /* Ensures readability on small screens */
+    width: auto; /* Allows button width to fit content */
+    max-width: 100%; /* Prevents overflow on small screens */
 }
 
 button:hover {
     background-color: #51c6ea;
 }
 
+/* Loan Options and End Game Sections */
 #loanOptions, #endGame {
     display: none;
     margin-top: 20px;
 }
 
+/* Responsive Adjustments */
 @media (max-width: 600px) {
+    h1 {
+        font-size: 18px; /* Slightly smaller on very small screens */
+    }
+
     #cityContainer span {
-        margin: 0 5px;
-        padding: 5px;
+        font-size: 14px; /* Adjust for smaller screens */
     }
 
     button {
-        width: calc(100% - 20px);
-        margin-top: 5px;
+        font-size: 14px; /* Ensure buttons remain usable on small screens */
     }
 }
