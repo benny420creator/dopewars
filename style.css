@@ -6,40 +6,41 @@ body, html {
     background-color: #333;
     color: white;
     text-align: center;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .container {
     width: 100%;
-    max-width: 600px; /* Adjust based on your preference for compactness */
-    margin: 0 auto;
+    max-width: 600px;
+    margin: 20px auto;
     padding: 10px;
     background-color: #424242;
     border-radius: 8px;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Ensures padding does not add to the width */
 }
 
 h1 {
     color: #61dafb;
-    font-size: 1.2rem; /* Smaller for compactness */
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin: 10px 0;
 }
 
-/* City navigation */
+/* City Container Styles */
 #cityContainer {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
+    flex-wrap: wrap; /* Allows cities to wrap on smaller screens */
+    margin-bottom: 20px;
 }
 
 #cityContainer span {
+    padding: 8px 10px;
     margin: 0 5px;
-    padding: 5px;
     cursor: pointer;
     border-radius: 5px;
     background-color: #50555c;
     transition: background-color 0.3s, color 0.3s;
-    font-size: 0.8rem; /* Smaller font for compactness */
+    font-size: 0.9rem;
 }
 
 #cityContainer span:hover, #cityContainer span.activeCity {
@@ -47,44 +48,47 @@ h1 {
     color: #282c34;
 }
 
-/* Status, actions, and loan options */
+/* Status, Actions, and Loan Options Styling */
 #status p, #actions button, #loanOptions button, #loanOptions p, #endGame h2, #endGame p {
-    font-size: 0.8rem; /* Smaller font for a more compact display */
+    font-size: 0.9rem;
     margin: 5px 0;
 }
 
-/* Table Styles */
-table {
+/* Table Styles for Drugs Chart */
+#drugsChart {
     width: 100%;
     border-collapse: collapse;
-    margin: 10px 0;
+    margin: 20px auto;
 }
 
-th, td {
+#drugsChart th, #drugsChart td {
     border: 1px solid #61dafb;
-    padding: 5px;
+    padding: 4px; /* Reduced padding for a more compact layout */
     text-align: left;
-    font-size: 0.8rem; /* Smaller font for table compactness */
-}
-
-input[type="number"], button {
-    padding: 5px;
-    margin: 2px 0; /* Smaller margins for compactness */
     font-size: 0.8rem;
-    width: auto; /* Ensure inputs and buttons don't stretch */
 }
 
-/* Responsive Design */
+/* Inputs and Buttons within the Drugs Chart for Buying/Selling */
+#drugsChart input[type="number"], #drugsChart button {
+    width: 50px; /* Narrower inputs and buttons */
+    padding: 5px;
+    margin: 0 2px;
+    font-size: 0.8rem;
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Responsive Design Adjustments */
 @media (max-width: 600px) {
-    .container, #cityContainer span, input[type="number"], button {
-        width: 100%; /* Ensure full width on smaller screens for better touch targets */
+    .container, #cityContainer span {
+        width: 100%;
     }
-    
-    #cityContainer {
-        margin-bottom: 5px;
+
+    #drugsChart input[type="number"], #drugsChart button {
+        width: 50px; /* Maintain narrow width for mobile */
+        font-size: 0.8rem;
     }
-    
-    #drugsChart th, #drugsChart td {
-        padding: 2px; /* Reduce padding in table cells for smaller screens */
+
+    #drugsChart td {
+        padding: 2px; /* Further reduce padding for tighter mobile layout */
     }
 }
