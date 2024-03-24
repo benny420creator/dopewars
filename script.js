@@ -2,92 +2,98 @@ let cash = 1000;
 let debt = 0;
 let daysLeft = 45;
 let currentLocation = 'Brooklyn';
+const locations = ['Brooklyn', 'Queens', 'Manhattan', 'Bronx', 'StatenIsland'];
 let drugs = [
-    { name: 'Weed', price: randomPrice() },
-    { name: 'Cocaine', price: randomPrice() },
-    { name: 'Heroin', price: randomPrice() },
-    { name: 'LSD', price: randomPrice() },
-    { name: 'Mushrooms', price: randomPrice() },
-    { name: 'MDMA', price: randomPrice() },
-    { name: 'Meth', price: randomPrice() },
-    { name: 'Opium', price: randomPrice() },
-    { name: 'Ketamine', price: randomPrice() },
-    { name: 'PCP', price: randomPrice() },
-    { name: 'Crack', price: randomPrice() },
-    { name: 'Ecstasy', price: randomPrice() }
+    { name: 'Weed', price: randomPrice(), quantity: 0 },
+    { name: 'Cocaine', price: randomPrice(), quantity: 0 },
+    { name: 'Heroin', price: randomPrice(), quantity: 0 },
+    { name: 'LSD', price: randomPrice(), quantity: 0 },
+    { name: 'Mushrooms', price: randomPrice(), quantity: 0 },
+    { name: 'MDMA', price: randomPrice(), quantity: 0 },
+    { name: 'Meth', price: randomPrice(), quantity: 0 },
+    { name: 'Opium', price: randomPrice(), quantity: 0 },
+    { name: 'Ketamine', price: randomPrice(), quantity: 0 },
+    { name: 'PCP', price: randomPrice(), quantity: 0 },
+    { name: 'Crack', price: randomPrice(), quantity: 0 },
+    { name: 'Ecstasy', price: randomPrice(), quantity: 0 }
 ];
-let inventory = {};
 
 document.addEventListener('DOMContentLoaded', () => {
+    highlightCurrentCity();
     updateGameInfo();
 });
 
 function randomPrice() {
-    return Math.floor(Math.random() * 500) + 50;
+    return Math.floor(Math.random() * 450) + 50; // Prices range from 50 to 500
 }
 
 function updateGameInfo() {
     document.getElementById('cash').textContent = `Cash: $${cash}`;
     document.getElementById('debt').textContent = `Debt: $${debt}`;
     document.getElementById('daysLeft').textContent = `${daysLeft} Days Left`;
-    document.getElementById('currentLocation').textContent = currentLocation;
     updateDrugsChart();
 }
 
 function updateDrugsChart() {
     const chart = document.getElementById('drugsChart');
-    chart.innerHTML = '<tr><th>Drug</th><th>Price</th><th>Action</th></tr>';
-    drugs.forEach(drug => {
+    chart.innerHTML = '<tr><th>Drug</th><th>Price /lb</th><th>Quantity Held</th><th>Actions</th></tr>';
+    drugs.forEach((drug, index) => {
         let row = chart.insertRow(-1);
-        let nameCell = row.insertCell(0);
-        let priceCell = row.insertCell(1);
-        let actionCell = row.insertCell(2);
-        nameCell.textContent = drug.name;
-        priceCell.textContent = `$${drug.price}`;
-        actionCell.innerHTML = `<button onclick="buyGoods('${drug.name}')">Buy</button> <button onclick="sellGoods('${drug.name}')">Sell</button>`;
+        row.innerHTML = `
+            <td>${drug.name}</td>
+            <td>$${drug.price}</td>
+            <td>${drug.quantity}</td>
+            <td>
+                <input type="number" value="1" min="1" id="buyAmount-${index}">
+                <button onclick="buyGoods('${drug.name}', document.getElementById('buyAmount-${index}').value)">Buy</button>
+                <input type="number" value="1" min="1" id="sellAmount-${index}">
+                <button onclick="sellGoods('${drug.name}', document.getElementById('sellAmount-${index}').value)">Sell</button>
+            </td>`;
     });
 }
 
-function buyGoods(drugName) {
+function buyGoods(drugName, amount) {
     const drug = drugs.find(d => d.name === drugName);
-    if (cash >= drug.price) {
-        cash -= drug.price;
-        inventory[drugName] = (inventory[drugName] || 0) + 1;
+    const totalCost = drug.price * amount;
+    if (cash >= totalCost && amount > 0) {
+        cash -= totalCost;
+        drug.quantity += parseInt(amount, 10);
         updateGameInfo();
     } else {
-        alert("Not enough cash!");
+        alert("Not enough cash or invalid amount.");
     }
 }
 
-function sellGoods(drugName) {
-    if (inventory[drugName] && inventory[drugName] > 0) {
-        const drug = drugs.find(d => d.name === drugName);
-        cash += drug.price;
-        inventory[drugName] -= 1;
+function sellGoods(drugName, amount) {
+    const drug = drugs.find(d => d.name === drugName);
+    if (drug.quantity >= amount && amount > 0) {
+        cash += drug.price * amount;
+        drug.quantity -= parseInt(amount, 10);
         updateGameInfo();
     } else {
-        alert(`You don't have any ${drugName} to sell!`);
+        alert("Not enough drugs to sell or invalid amount.");
     }
 }
 
 function nextDay() {
     daysLeft--;
-    drugs.forEach(drug => drug.price = randomPrice());
     if (daysLeft <= 0) {
         endGame();
-    } else {
-        updateGameInfo();
+        return;
     }
+    currentLocation = locations[Math.floor(Math.random() * locations.length)]; // Change location randomly
+    drugs.forEach(drug => drug.price = randomPrice());
+    highlightCurrentCity();
+    updateGameInfo();
 }
 
 function showLoanSharkOptions() {
-    const loanOptions = document.getElementById('loanOptions');
-    loanOptions.style.display = loanOptions.style.display === 'block' ? 'none' : 'block';
+    document.getElementById('loanOptions').style.display = 'block';
 }
 
 function borrowFromLoanShark(amount) {
     cash += amount;
-    debt += amount * 1.1; // 10% interest rate
+    debt += amount * 1.1; // 10% interest
     updateGameInfo();
 }
 
@@ -97,23 +103,26 @@ function repayDebt() {
         debt = 0;
         updateGameInfo();
     } else {
-        alert("Not enough cash to repay the debt!");
+        alert("Not enough cash to repay the debt.");
     }
-}
-
-function endGame() {
-    let finalScore = cash - debt;
-    document.getElementById('endGame').style.display = 'block';
-    document.getElementById('finalScore').textContent = `Final Score: $${finalScore}`;
-    document.getElementById('actions').style.display = 'none';
-    document.getElementById('loanOptions').style.display = 'none';
 }
 
 function hideLoanSharkOptions() {
     document.getElementById('loanOptions').style.display = 'none';
 }
 
-function restartGame() {
-    // Reset game state for a new game and update UI accordingly
-    // This function needs to be filled out based on how you want to reset the game state
+function highlightCurrentCity() {
+    locations.forEach(location => {
+        const element = document.getElementById(location);
+        if (location === currentLocation) {
+            element.classList.add('activeCity');
+        } else {
+            element.classList.remove('activeCity');
+        }
+    });
+}
+
+function endGame() {
+    document.getElementById('endGame').style.display = 'block';
+    document.getElementById('finalScore').textContent = `Final Score: $${cash - debt}`;
 }
