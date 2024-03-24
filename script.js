@@ -19,12 +19,12 @@ let drugs = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-    highlightCurrentCity();
     updateGameInfo();
+    highlightCurrentCity();
 });
 
 function randomPrice() {
-    return Math.floor(Math.random() * 450) + 50; // Prices range from 50 to 500
+    return Math.floor(Math.random() * 450) + 50;
 }
 
 function updateGameInfo() {
@@ -36,42 +36,40 @@ function updateGameInfo() {
 
 function updateDrugsChart() {
     const chart = document.getElementById('drugsChart');
-    chart.innerHTML = '<tr><th>Drug</th><th>Price /lb</th><th>Quantity Held</th><th>Actions</th></tr>';
-    drugs.forEach((drug, index) => {
-        let row = chart.insertRow(-1);
-        row.innerHTML = `
-            <td>${drug.name}</td>
-            <td>$${drug.price}</td>
-            <td>${drug.quantity}</td>
-            <td>
-                <input type="number" value="1" min="1" id="buyAmount-${index}">
-                <button onclick="buyGoods('${drug.name}', document.getElementById('buyAmount-${index}').value)">Buy</button>
-                <input type="number" value="1" min="1" id="sellAmount-${index}">
-                <button onclick="sellGoods('${drug.name}', document.getElementById('sellAmount-${index}').value)">Sell</button>
-            </td>`;
+    chart.innerHTML = '<tr><th>Drug</th><th>Price /lb</th><th>Qty Held</th><th>Buy/Sell</th></tr>';
+    drugs.forEach(drug => {
+        const row = chart.insertRow(-1);
+        row.innerHTML = `<td>${drug.name}</td>
+                         <td>$${drug.price}</td>
+                         <td>${drug.quantity}</td>
+                         <td>
+                            <input type='number' value='1' min='1' id='quantity-${drug.name}' style='width: 50px;'>
+                            <button onclick='buyGoods("${drug.name}", document.getElementById("quantity-${drug.name}").value)'>Buy</button>
+                            <button onclick='sellGoods("${drug.name}", document.getElementById("quantity-${drug.name}").value)'>Sell</button>
+                         </td>`;
     });
 }
 
-function buyGoods(drugName, amount) {
+function buyGoods(drugName, quantity) {
     const drug = drugs.find(d => d.name === drugName);
-    const totalCost = drug.price * amount;
-    if (cash >= totalCost && amount > 0) {
+    const totalCost = drug.price * quantity;
+    if (cash >= totalCost && quantity > 0) {
         cash -= totalCost;
-        drug.quantity += parseInt(amount, 10);
+        drug.quantity += parseInt(quantity, 10);
         updateGameInfo();
     } else {
         alert("Not enough cash or invalid amount.");
     }
 }
 
-function sellGoods(drugName, amount) {
+function sellGoods(drugName, quantity) {
     const drug = drugs.find(d => d.name === drugName);
-    if (drug.quantity >= amount && amount > 0) {
-        cash += drug.price * amount;
-        drug.quantity -= parseInt(amount, 10);
+    if (drug.quantity >= quantity && quantity > 0) {
+        cash += drug.price * quantity;
+        drug.quantity -= parseInt(quantity, 10);
         updateGameInfo();
     } else {
-        alert("Not enough drugs to sell or invalid amount.");
+        alert("Not enough stock or invalid amount.");
     }
 }
 
@@ -81,10 +79,21 @@ function nextDay() {
         endGame();
         return;
     }
-    currentLocation = locations[Math.floor(Math.random() * locations.length)]; // Change location randomly
+    currentLocation = locations[Math.floor(Math.random() * locations.length)];
     drugs.forEach(drug => drug.price = randomPrice());
     highlightCurrentCity();
     updateGameInfo();
+}
+
+function highlightCurrentCity() {
+    locations.forEach(location => {
+        const element = document.getElementById(location);
+        if (location === currentLocation) {
+            element.classList.add('activeCity');
+        } else {
+            element.classList.remove('activeCity');
+        }
+    });
 }
 
 function showLoanSharkOptions() {
@@ -111,18 +120,35 @@ function hideLoanSharkOptions() {
     document.getElementById('loanOptions').style.display = 'none';
 }
 
-function highlightCurrentCity() {
-    locations.forEach(location => {
-        const element = document.getElementById(location);
-        if (location === currentLocation) {
-            element.classList.add('activeCity');
-        } else {
-            element.classList.remove('activeCity');
-        }
-    });
-}
-
 function endGame() {
     document.getElementById('endGame').style.display = 'block';
     document.getElementById('finalScore').textContent = `Final Score: $${cash - debt}`;
 }
+
+// Add a restartGame function if you plan on allowing the user to restart the game without refreshing the page.
+function restartGame() {
+    // Reset game state
+    cash = 1000;
+    debt = 0;
+    daysLeft = 45;
+    currentLocation = 'Brooklyn';
+    drugs.forEach(drug => {
+        drug.price = randomPrice();
+        drug.quantity = 0;
+    });
+
+    // Hide the end game message and show the main game actions
+    document.getElementById('endGame').style.display = 'none';
+    document.getElementById('actions').style.display = 'block';
+    document.getElementById('loanOptions').style.display = 'none'; // Ensure loan options are hidden
+
+    updateGameInfo(); // Refresh the game information display
+    highlightCurrentCity(); // Ensure the correct city is highlighted
+}
+
+// Initialize the game when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    restartGame(); // Use restartGame to set the initial state, ensuring consistency
+});
+
+// Optional: Add additional functionalities as needed
