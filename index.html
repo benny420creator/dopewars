@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Dope Wars</title>
+    <title>Dope Wars: Modern Edition</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Advanced Dope Wars</h1>
+        <h1>Dope Wars: Modern Edition</h1>
         <div id="status">
             <p id="daysLeft">45 Days Left</p>
             <p id="cash">Cash: $1000</p>
             <p id="debt">Debt: $0</p>
+            <p id="cities">Current Location: <span id="currentLocation">Brooklyn</span></p>
         </div>
-        <div id="cities"></div>
-        <table id="drugsChart"></table>
+        <table id="drugsChart">
+            <!-- Drugs chart will be populated by script.js -->
+        </table>
         <div id="actions">
-            <button onclick="buyGoods()">Buy</button>
-            <button onclick="sellGoods()">Sell</button>
             <button onclick="nextDay()">Next Day</button>
             <button onclick="showLoanSharkOptions()">Loan Shark</button>
         </div>
-        <div id="loanOptions" style="display: none;">
-            <p>Borrow Money (10% interest rate):</p>
-            <button onclick="borrowFromLoanShark(100)">$100</button>
-            <button onclick="borrowFromLoanShark(500)">$500</button>
-            <button onclick="borrowFromLoanShark(1000)">$1000</button>
+        <div id="loanOptions">
+            <p>Borrow Money (10% interest):</p>
+            <button onclick="borrowFromLoanShark(100)">Borrow $100</button>
+            <button onclick="borrowFromLoanShark(500)">Borrow $500</button>
+            <button onclick="borrowFromLoanShark(1000)">Borrow $1000</button>
             <button onclick="repayDebt()">Repay Debt</button>
             <button onclick="hideLoanSharkOptions()">Cancel</button>
         </div>
