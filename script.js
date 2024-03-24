@@ -1,7 +1,7 @@
 let cash = 1000;
 let debt = 0;
-let currentLocation = 'Brooklyn';
 let daysLeft = 45;
+let currentLocation = 'Brooklyn';
 let drugs = [
     { name: 'Weed', price: randomPrice() },
     { name: 'Cocaine', price: randomPrice() },
@@ -16,8 +16,11 @@ let drugs = [
     { name: 'Crack', price: randomPrice() },
     { name: 'Ecstasy', price: randomPrice() }
 ];
-let locations = ['Brooklyn', 'Queens', 'Manhattan', 'Bronx', 'Staten Island'];
 let inventory = {};
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateGameInfo();
+});
 
 function randomPrice() {
     return Math.floor(Math.random() * 500) + 50;
@@ -27,11 +30,8 @@ function updateGameInfo() {
     document.getElementById('cash').textContent = `Cash: $${cash}`;
     document.getElementById('debt').textContent = `Debt: $${debt}`;
     document.getElementById('daysLeft').textContent = `${daysLeft} Days Left`;
+    document.getElementById('currentLocation').textContent = currentLocation;
     updateDrugsChart();
-    updateCities();
-    if (daysLeft <= 0) {
-        endGame();
-    }
 }
 
 function updateDrugsChart() {
@@ -48,18 +48,6 @@ function updateDrugsChart() {
     });
 }
 
-function updateCities() {
-    const citiesContainer = document.getElementById('cities');
-    citiesContainer.innerHTML = '';
-    locations.forEach(location => {
-        let cityDiv = document.createElement('div');
-        cityDiv.textContent = location;
-        cityDiv.className = location === currentLocation ? 'active' : '';
-        cityDiv.onclick = function() { moveLocation(location); };
-        citiesContainer.appendChild(cityDiv);
-    });
-}
-
 function buyGoods(drugName) {
     const drug = drugs.find(d => d.name === drugName);
     if (cash >= drug.price) {
@@ -72,31 +60,29 @@ function buyGoods(drugName) {
 }
 
 function sellGoods(drugName) {
-    if (inventory[drugName] > 0) {
+    if (inventory[drugName] && inventory[drugName] > 0) {
         const drug = drugs.find(d => d.name === drugName);
         cash += drug.price;
         inventory[drugName] -= 1;
         updateGameInfo();
     } else {
-        alert("You don't have any " + drugName + " to sell!");
-    }
-}
-
-function moveLocation(newLocation) {
-    if (currentLocation !== newLocation) {
-        currentLocation = newLocation;
-        updateGameInfo();
+        alert(`You don't have any ${drugName} to sell!`);
     }
 }
 
 function nextDay() {
     daysLeft--;
     drugs.forEach(drug => drug.price = randomPrice());
-    updateGameInfo();
+    if (daysLeft <= 0) {
+        endGame();
+    } else {
+        updateGameInfo();
+    }
 }
 
 function showLoanSharkOptions() {
-    document.getElementById('loanOptions').style.display = 'block';
+    const loanOptions = document.getElementById('loanOptions');
+    loanOptions.style.display = loanOptions.style.display === 'block' ? 'none' : 'block';
 }
 
 function borrowFromLoanShark(amount) {
@@ -117,8 +103,17 @@ function repayDebt() {
 
 function endGame() {
     let finalScore = cash - debt;
-    document.getElementById('finalScore').textContent = `Final Score: $${finalScore}`;
     document.getElementById('endGame').style.display = 'block';
+    document.getElementById('finalScore').textContent = `Final Score: $${finalScore}`;
+    document.getElementById('actions').style.display = 'none';
+    document.getElementById('loanOptions').style.display = 'none';
 }
 
-updateGameInfo();
+function hideLoanSharkOptions() {
+    document.getElementById('loanOptions').style.display = 'none';
+}
+
+function restartGame() {
+    // Reset game state for a new game and update UI accordingly
+    // This function needs to be filled out based on how you want to reset the game state
+}
