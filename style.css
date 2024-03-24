@@ -1,44 +1,39 @@
-/* style.css */
+/* Base styles */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #282c34;
     color: white;
     text-align: center;
-    margin-top: 50px;
+    margin: 0;
+    padding: 20px;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 600px;
     margin: auto;
-    padding: 20px;
     background-color: #3b4049;
     border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#drugsChart {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+h1 {
+    margin: 0 0 20px 0;
 }
 
-#drugsChart th, #drugsChart td {
-    border: 1px solid #61dafb;
-    padding: 10px;
-    text-align: left;
+#status p, #daysLeft {
+    margin: 10px 0;
 }
 
-#cities {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
+/* Cities and actions styling */
 #cities div {
+    display: inline-block;
     margin: 0 10px;
     padding: 5px 10px;
     border: 1px solid #61dafb;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #cities .active {
@@ -46,16 +41,66 @@ body {
     color: #282c34;
 }
 
+/* Button styles */
 button {
     background-color: #61dafb;
+    color: #282c34;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #51c6ea;
+}
+
+/* Drugs chart styling */
+#drugsChart {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+#drugsChart th, #drugsChart td {
+    border: 1px solid #61dafb;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Loan shark options styling */
+#loanOptions {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #50555c;
+    border-radius: 5px;
+}
+
+/* End game message styling */
+#endGame {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        padding: 10px;
+    }
+
+    button, #loanOptions button {
+        width: calc(100% - 20px);
+        margin: 5px 0; /* Adjust margins for smaller screens */
+    }
+
+    #cities div {
+        margin: 5px;
+        font-size: 14px;
+    }
 }
