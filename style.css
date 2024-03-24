@@ -1,56 +1,72 @@
-/* Base styles */
+/* General and Body Styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #282c34;
+    background-color: #333;
     color: white;
     text-align: center;
     margin: 0;
-    padding: 20px;
+    padding-top: 20px;
 }
 
+/* Container for game elements */
 .container {
+    width: 90%;
     max-width: 600px;
     margin: auto;
-    background-color: #3b4049;
-    border-radius: 10px;
+    background-color: #424242;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Title styling */
 h1 {
-    margin: 0 0 20px 0;
+    color: #61dafb;
 }
 
-#status p, #daysLeft {
+/* Status information styling */
+#status p {
     margin: 10px 0;
 }
 
-/* Cities and actions styling */
-#cities div {
-    display: inline-block;
-    margin: 0 10px;
-    padding: 5px 10px;
-    border: 1px solid #61dafb;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+/* Dynamic location display */
+#cities {
+    font-size: 16px;
+    margin: 20px 0;
 }
 
-#cities .active {
-    background-color: #61dafb;
-    color: #282c34;
+/* Loan options styling */
+#loanOptions {
+    display: none;
+    margin: 20px 0;
 }
 
-/* Button styles */
+/* Table styling for the drugs chart */
+#drugsChart {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+#drugsChart th, #drugsChart td {
+    border-bottom: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+}
+
+#drugsChart th {
+    border-bottom: 2px solid #61dafb;
+}
+
+/* Button styling */
 button {
     background-color: #61dafb;
     color: #282c34;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    border-radius: 4px;
+    padding: 10px 15px;
     margin: 5px;
     cursor: pointer;
-    font-size: 16px;
     transition: background-color 0.3s;
 }
 
@@ -58,49 +74,14 @@ button:hover {
     background-color: #51c6ea;
 }
 
-/* Drugs chart styling */
-#drugsChart {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-#drugsChart th, #drugsChart td {
-    border: 1px solid #61dafb;
-    padding: 8px;
-    text-align: left;
-}
-
-/* Loan shark options styling */
-#loanOptions {
-    margin: 20px 0;
-    padding: 10px;
-    background-color: #50555c;
-    border-radius: 5px;
-}
-
-/* End game message styling */
-#endGame {
-    display: none;
-    margin-top: 20px;
-}
-
-/* Responsive adjustments for smaller screens */
+/* Responsive Design Adjustments */
 @media (max-width: 600px) {
     .container {
-        width: 100%;
-        margin: 0;
-        border-radius: 0;
+        width: 95%;
         padding: 10px;
     }
 
-    button, #loanOptions button {
+    button {
         width: calc(100% - 20px);
-        margin: 5px 0; /* Adjust margins for smaller screens */
-    }
-
-    #cities div {
-        margin: 5px;
-        font-size: 14px;
     }
 }
