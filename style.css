@@ -8,15 +8,42 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
     padding: 20px;
     background-color: #3b4049;
     border-radius: 10px;
 }
 
-#gameInfo, #actions {
+#drugsChart {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#drugsChart th, #drugsChart td {
+    border: 1px solid #61dafb;
+    padding: 10px;
+    text-align: left;
+}
+
+#cities {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
+}
+
+#cities div {
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: 1px solid #61dafb;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#cities .active {
+    background-color: #61dafb;
+    color: #282c34;
 }
 
 button {
@@ -31,12 +58,4 @@ button {
 
 button:hover {
     background-color: #51c6ea;
-}
-
-select {
-    padding: 5px;
-    background-color: #50555c;
-    color: white;
-    border-radius: 5px;
-    border: 1px solid #61dafb;
 }
