@@ -2,26 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Dope Wars</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Advanced Dope Wars</h1>
+        <div id="daysLeft">45 Days Left</div>
         <div id="cities"></div>
-        <div id="chartContainer">
-            <table id="drugsChart">
-                <!-- Chart rows will be dynamically generated -->
-            </table>
-        </div>
+        <table id="drugsChart"></table>
         <div id="gameInfo">
             <p id="cash">Cash: $1000</p>
-            <p id="price">Price: $0</p>
         </div>
         <div id="actions">
             <button onclick="buyGoods()">Buy</button>
             <button onclick="sellGoods()">Sell</button>
-            <button onclick="moveLocation()">Move</button>
+            <button onclick="nextDay()">Next Day</button>
+        </div>
+        <div id="endGame" style="display: none;">
+            <h2>Game Over</h2>
+            <p id="finalScore"></p>
+            <button onclick="restartGame()">Restart</button>
         </div>
     </div>
     <script src="script.js"></script>
